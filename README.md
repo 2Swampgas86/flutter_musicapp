@@ -1,6 +1,6 @@
-# musicapp
+# flutter_musicapp
 
-A new Flutter project.
+Music Quiz App made using Flutter+Firebase
 
 ## Getting Started
 
