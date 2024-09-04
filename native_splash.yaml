@@ -1,0 +1,8 @@
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+
+  background_image: "assets/images/bg.jpg"
+  image: "assets/images/slash.png"
+  
