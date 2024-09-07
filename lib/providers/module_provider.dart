@@ -14,6 +14,10 @@ class ModuleProvider extends ChangeNotifier {
   List<Module> get modules => moduleList; // Getter to access modules
   String get id => userId;
   Level currentLevel = Level.beginner;
+  void clearModuleList() {
+    moduleList.clear();
+    notifyListeners();
+  }
 
   Future<void> addmodulestoUser(Level level) async {
     currentLevel = level;
@@ -129,7 +133,8 @@ class ModuleProvider extends ChangeNotifier {
         moduleList.add(module);
       }
     } catch (e) {
-const Center(child: Text('An error occurred'));    }
+      const Center(child: Text('An error occurred'));
+    }
 
     notifyListeners();
   }
@@ -192,9 +197,7 @@ const Center(child: Text('An error occurred'));    }
         },
       );
     } catch (e) {
-      
-        const Center(child: Text('An error occurred'));
-      
+      const Center(child: Text('An error occurred'));
     }
     notifyListeners(); // Notify listeners to rebuild UI
   }
@@ -230,7 +233,8 @@ const Center(child: Text('An error occurred'));    }
         batch.set(newSubDocRef, subDoc.data());
       }
     } catch (e) {
-      const Center(child: Text('An error occurred'));;
+      const Center(child: Text('An error occurred'));
+      ;
     }
   }
 
@@ -238,7 +242,6 @@ const Center(child: Text('An error occurred'));    }
       DocumentReference moduleDocRef) async {
     QuerySnapshot questionSnapshot =
         await moduleDocRef.collection('questions').get();
-    
 
     return questionSnapshot.docs.map(
       (doc) {
@@ -255,7 +258,7 @@ const Center(child: Text('An error occurred'));    }
         await moduleDocRef.collection('requirementPage').get();
     if (requiredPageSnapshot.docs.isEmpty) {
       requirementPages = null;
-      
+
       return requirementPages;
     }
 

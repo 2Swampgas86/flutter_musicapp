@@ -28,7 +28,7 @@ class Resultmcq extends StatelessWidget {
       builder: (context, value, child) {
         bool iscoursedone = false;
         return Scaffold(
-          backgroundColor: Color.fromARGB(255, 236, 215, 140),
+          backgroundColor: const Color.fromARGB(255, 236, 215, 140),
           body: Center(
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 5),
@@ -86,12 +86,12 @@ class Resultmcq extends StatelessWidget {
                   OutlinedButton(
                     onPressed: () async {
                       var moduleProvider = context.read<ModuleProvider>();
+                      moduleProvider.updateCourse(coursenumber);
                       iscoursedone = value.allModulesCompleted();
                       !iscoursedone
                           ? moduleProvider.updatelock(coursenumber + 1)
                           : null;
-                      moduleProvider.updateStars(coursenumber, score);
-                      moduleProvider.updateCourse(coursenumber).then((e) {
+                      moduleProvider.updateStars(coursenumber, score).then((e) {
                         if (buttonswitch) {
                           Navigator.push(
                             context,

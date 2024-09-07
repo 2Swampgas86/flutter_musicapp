@@ -89,25 +89,25 @@ class InfoViewState extends State<InfoView> {
                       final userhint = pageList[index].userhint;
 
                       return SafeArea(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const SizedBox(height: 5),
-                              pageList[index].title == null
-                                  ? const SizedBox(height: 5)
-                                  : Text(
-                                      pageList[index].title!,
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold,
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const SizedBox(height: 5),
+                                pageList[index].title == null
+                                    ? const SizedBox(height: 5)
+                                    : Text(
+                                        pageList[index].title!,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                              SingleChildScrollView(
-                                child: Column(
+                                Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: subtitles
@@ -117,7 +117,7 @@ class InfoViewState extends State<InfoView> {
                                           child: Text(
                                             item,
                                             style: const TextStyle(
-                                              fontSize: 25,
+                                              fontSize: 15,
                                               color: Colors.black,
                                             ),
                                           ),
@@ -125,101 +125,36 @@ class InfoViewState extends State<InfoView> {
                                       )
                                       .toList(),
                                 ),
-                              ),
-                              images.isEmpty
-                                  ? const SizedBox(height: 5)
-                                  : Expanded(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: images.map((item) {
+                                if (images.isNotEmpty)
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 20.0),
+                                    // child:
+                                    child: SizedBox(
+                                      width: 200,
+                                      height: 200, // Adjust height as needed
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: images.length,
+                                        itemBuilder: (context, index) {
                                           return Padding(
                                             padding: const EdgeInsets.all(2),
-                                            child: LayoutBuilder(
-                                              builder: (context, constraints) {
-                                                double maxSize = constraints
-                                                            .maxWidth >
-                                                        constraints.maxHeight
-                                                    ? constraints.maxWidth
-                                                    : constraints.maxHeight;
-
-                                                return Container(
-                                                  margin:
-                                                      const EdgeInsets.all(1),
-                                                  constraints: BoxConstraints(
-                                                      maxHeight: maxSize,
-                                                      maxWidth: maxSize),
-                                                  child: AspectRatio(
-                                                    aspectRatio: 0.5,
-                                                    child: Image(
-                                                      image: NetworkImage(item),
-                                                      fit: constraints
-                                                                  .maxWidth >
-                                                              constraints
-                                                                  .maxHeight
-                                                          ? BoxFit.fitWidth
-                                                          : BoxFit.scaleDown,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
+                                            child: Container(
+                                              constraints: const BoxConstraints(
+                                                  maxHeight:
+                                                      100, // Adjust maxHeight as needed
+                                                  maxWidth:
+                                                      100), // Adjust maxWidth as needed
+                                              child: Image.network(
+                                                images[index],
+                                                fit: BoxFit.contain,
+                                              ),
                                             ),
                                           );
-                                        }).toList(),
+                                        },
                                       ),
                                     ),
-                              // audios == null
-                              //     ? const SizedBox(height: 5)
-                              //     : Expanded(
-                              //         child: Row(
-                              //           mainAxisAlignment:
-                              //               MainAxisAlignment.spaceEvenly,
-                              //           crossAxisAlignment:
-                              //               CrossAxisAlignment.start,
-                              //           children: audios
-                              //               .map(
-                              //                 (item) => Padding(
-                              //                     padding:
-                              //                         const EdgeInsets.all(8.0),
-                              //                     child: ElevatedButton(
-                              //                       style: ElevatedButton
-                              //                           .styleFrom(
-                              //                         padding:
-                              //                             const EdgeInsets.all(
-                              //                                 10),
-                              //                         backgroundColor:
-                              //                             const Color.fromARGB(
-                              //                                 255,
-                              //                                 49,
-                              //                                 189,
-                              //                                 236),
-                              //                         animationDuration:
-                              //                             const Duration(
-                              //                                 milliseconds: 2),
-                              //                         elevation: 5,
-                              //                         fixedSize:
-                              //                             const Size(100, 50),
-                              //                         shape:
-                              //                             const StadiumBorder(
-                              //                           side: BorderSide(
-                              //                             color: Colors.black,
-                              //                             width: 2,
-                              //                           ),
-                              //                         ),
-                              //                       ),
-                              //                       child: const Text('Play'),
-                              //                       onPressed: () async {
-                              //                         await player.play(
-                              //                             AssetSource(item));
-                              //                       },
-                              //                     )),
-                              //               )
-                              //               .toList(),
-                              //         ),
-                              //       ),
-                               if (audios != null)
+                                  ),
+                                if (audios != null)
                                   Padding(
                                     padding: const EdgeInsets.only(top: 20.0),
                                     child: Row(
@@ -263,26 +198,28 @@ class InfoViewState extends State<InfoView> {
                                           .toList(),
                                     ),
                                   ),
-                               
-                              userhint != null
-                                  ? Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        GestureDetector(
-                                          onTap: (){
-                                            openDialog(userhint);
-                                          },
-                                          child: const Text(
-                                            'Hint!!',
-                                            style: TextStyle(
-                                                color: Color.fromARGB(255, 0, 0, 0),
-                                                fontSize: 20),
+                                userhint != null
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              openDialog(userhint);
+                                            },
+                                            child: const Text(
+                                              'Hint!!',
+                                              style: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                  fontSize: 20),
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    )
-                                  : const SizedBox(height: 5)
-                            ],
+                                        ],
+                                      )
+                                    : const SizedBox(height: 5)
+                              ],
+                            ),
                           ),
                         ),
                       );
@@ -294,7 +231,7 @@ class InfoViewState extends State<InfoView> {
                     right: 25,
                     child: _endButton
                         ? ElevatedButton(
-                          style: ElevatedButton.styleFrom(
+                            style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(10),
                               backgroundColor:
                                   const Color.fromARGB(255, 49, 189, 236),
@@ -303,14 +240,13 @@ class InfoViewState extends State<InfoView> {
                               elevation: 5,
                               textStyle: const TextStyle(fontSize: 20),
                               shape: const StadiumBorder(
-
                                 side: BorderSide(
                                   color: Colors.black,
                                   width: 2,
                                 ),
                               ),
                             ),
-                          onPressed: () {
+                            onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -320,8 +256,8 @@ class InfoViewState extends State<InfoView> {
                                 ),
                               );
                             },
-                          child: const Text('Take Quiz'),
-                        )
+                            child: const Text('Take Quiz'),
+                          )
                         : Container(
                             margin: const EdgeInsets.symmetric(vertical: 5),
                             alignment: Alignment.bottomCenter,
@@ -346,11 +282,12 @@ class InfoViewState extends State<InfoView> {
   }
 
   Future<void> openDialog(String userhint) async {
-    showDialog(context: context, builder: (context)=> AlertDialog(
-      title: const Text("Hint!"),
-      content: Text(userhint),
-    )
-    );
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: const Text("Hint!"),
+              content: Text(userhint),
+            ));
   }
 }
 // class InfoView extends StatelessWidget {

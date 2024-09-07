@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:musicapp/models/levels_enum.dart';
+import 'package:musicapp/providers/module_provider.dart';
 import 'package:musicapp/screenhelper/module_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:musicapp/screens/auth.dart';
+import 'package:provider/provider.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -19,6 +22,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<ModuleProvider>(context, listen: false).clearModuleList();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey,

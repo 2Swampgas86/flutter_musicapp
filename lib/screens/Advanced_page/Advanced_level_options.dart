@@ -14,7 +14,7 @@ class AdvancedOption extends StatelessWidget {
       builder: (context, value, child) {
         
         return Scaffold(
-          backgroundColor:Theme.of(context).colorScheme.primary ,
+          backgroundColor:Theme.of(context).colorScheme.primary.withOpacity(0.2) ,
           body: Center(
             child: Container(
               margin: const EdgeInsets.all(50),
@@ -23,10 +23,12 @@ class AdvancedOption extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ElevatedButton(
+                  TextButton(
                       child: const Text('Go to the next Level!'),
                       onPressed: () {
+                        context.read<ModuleProvider>().clearModuleList();
                         context.read<ModuleProvider>().unlockNextLevel();
+                    
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
                               builder: (context) => SelectModule(
@@ -36,7 +38,7 @@ class AdvancedOption extends StatelessWidget {
                             (route) => false);
                       }),
                   const SizedBox(height: 20),
-                  ElevatedButton(
+                  TextButton(
                       onPressed: ()  {
                         context.read<ModuleProvider>().unlockNextLevel();
                         Navigator.of(context).pushAndRemoveUntil(
