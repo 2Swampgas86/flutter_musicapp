@@ -1,6 +1,7 @@
 # flutter_musicapp
 
 Music Quiz App made using Flutter+Firebase.
+The project aims to develop a comprehensive mobile application for learning music theory. The app will provide a gamified and interactive environment for users to learn and practice music theory effectively. It is designed as a template for any educational app requiring front-end and back-end services. The app uses Flutter for the front-end and Firebase for back-end services. State management packages such as provider and bloc provider are used for the front end for performance optimisation. The backend services that are mainly used are authentication and Firestore storage. Some metrics that save the user's progress are the courses completed, the stars for each course, and the locked status of each level and course. Performance metrics include an app size of approximately 58 MB, which aligns with the target range of 50-100 MB, and an FPS of about 38. The app aims to achieve a target FPS of 60 for a smooth user experience.
 
 # User Guide
 
